@@ -59,7 +59,7 @@ Protocol:
 
 Utility:
 
-* Variables: toolbox (bool), computerConnection (bool), arm (bool)
+* Variables: toolbox (bool), computerConnection (bool), scanner (bool)
 * Constructors: 5 parameter constructor (string, string, bool, bool, bool)
 	* Uses the base class (Droid) constructor
 * Public Methods:
@@ -70,7 +70,7 @@ There should be two more derived classes from the class Utility with appropriate
 
 Janitor:
 
-* Variables: trashCompactor (bool), vacuum (bool)
+* Variables: broom (bool), vacuum (bool)
 * Constructors: 7 parameter constructor (string, string, bool, bool, bool, bool, bool)
 	* Uses the base class (Utility) constructor
 * Public Methods:
@@ -79,7 +79,7 @@ Janitor:
 
 Astromech:
 
-* Variables: fireExtinquisher (bool), numberShips (int)
+* Variables: navigation (bool), numberShips (int)
 * Constant: costPerShip
 * Constructors: 7 parameter constructor (string, string, bool, bool, bool, bool, int)
 	* Uses the base class (Utility) constructor

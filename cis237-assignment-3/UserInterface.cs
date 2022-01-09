@@ -150,7 +150,7 @@ namespace cis237_assignment_3
             Console.WriteLine();
             bool option2 = this.displayAndGetOption("Does the droid have a computer connection?");
             Console.WriteLine();
-            bool option3 = this.displayAndGetOption("Does the droid have an arm?");
+            bool option3 = this.displayAndGetOption("Does the droid have an scanner?");
 
             bool[] returnArray = { option1, option2, option3 };
             return returnArray;
@@ -160,7 +160,7 @@ namespace cis237_assignment_3
         private bool[] displayAndGetJanatorialOptions()
         {
             Console.WriteLine();
-            bool option1 = this.displayAndGetOption("Does the droid have a trash compactor?");
+            bool option1 = this.displayAndGetOption("Does the droid have a broom?");
             Console.WriteLine();
             bool option2 = this.displayAndGetOption("Does the droid have a vaccum?");
 
@@ -172,7 +172,7 @@ namespace cis237_assignment_3
         private bool displayAndGetAstromechOption()
         {
             Console.WriteLine();
-            return this.displayAndGetOption("Does the droid have a fire extinguisher?");
+            return this.displayAndGetOption("Does the droid have a navigation?");
         }
 
         // Display and get the number of ships
