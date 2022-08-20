@@ -6,23 +6,24 @@ David Barnes
 
 ## Description
 
-The Jawas on Tatooine have recently opened a droid factory and they want to hire you to write a program to hold a list of the available droids, and the price of each droid. The price is based on the type: (protocol, utility, janitor, or astromech), the material used and the options selected by the Jawa creating the list.
+The Jawas on Tatooine have recently opened a droid factory and they want to hire you to write a program to hold a list of the available droids, and the price of each droid. The price is based on the type: (protocol, utility, janitor, or astromech), the material used, and the various options that a particular droid has. The Jawa will choose the various options for a specific droid when adding that droid to the list of droids.
 
 The program will keep a list of Droids that are created. This list MUST be an Array. The array should be of a type that is high enough on the inheritance chain that all droids no matter what type they are can be stored in it (Think Polymorphism). Don't make it of type 'object'. That is too high on the inheritance chain. Also, just make the size of the array large enough that it can accommodate some droids. 100 is a good number that comes to mind. I'm not concerned with it being auto-resizing, or anything fancy.
 
 A Jawa will be presented with a user interface to add a new Droid, or print the current Droid list. Adding a new Droid will require input from the Jawa to create the new droid. Once all of the needed information is added for the droid, the new droid will be added to the droid collection.
 
-If a Jawa decides to print the collection of droids in inventory, the program should loop through all of the droids in the collection and print out the information from ToString, and the TotalCost for each droid. This should be accomplished using Polymorphism to reduce the amount of code needed.
+If a Jawa decides to print the collection of droids in inventory, the program should loop through all of the droids in the collection and print out all of the various properties of each droid as well as the total cost of the droid. You should try to use a combination of the ToString and TotalCost method/property along with Polymorphism to reduce the amount of code needed to print the results of each droid.
+NOTE: You may want to print each droid as a block of text rather than trying to cram all of the various properties for the droid onto a single line.
 
 All of the prices for the various aspects of a droid are left up to you to determine. If I was doing it though, I would probably have a small set price for each of the following general options, and not get too specific to save time. ie:
-1. A price for model(protocol, utility, etc.)
-2. A few different materials (Something Made up), each with a different price
-3. A price for each additional option (One of the various option bools listed below. One price for all will work)
-4. A price per quantity option such as: numberOfLanguages, and numberOfShips
+1. A price for the droid model (protocol, utility, etc.)
+2. A few different material choices (Something Made up), each with a different price
+3. A price for each additional option. One of the various option bools listed below. (3 options * $10 per option)
+4. A price per quantity option such as: numberOfLanguages, and numberOfShips (3 ships * $10 per ship)
 
-The program comes with an Interface IDroid that must be implemented by subclasses. It contains a public method called CalculateTotalCost, and a public Property called TotalCost. CalculateTotalCost returns a void, so it's job is to access the properties of the droid and literally calculate the total cost. It does not return the Total Cost. It only Calculates it.
-TotalCost is how you will get access to the total cost of the droid. This will be zero until CalculateTotalCost is called. Then it will have a value.
-I didn't make CalculateTotalCost return the calculated value because I wanted you to have to implement both a method and a property in subclasses. This should also demonstrate how an Interface acts as a contract and requires you to write things a certain way. Even if you don't agree with it.
+The program comes with an Interface IDroid that must be implemented by subclasses and can NOT be altered. You MUST use it as it. It contains a public method called CalculateTotalCost, and a public Property called TotalCost. CalculateTotalCost returns a void, so it's job is to access the properties of the droid and literally calculate the total cost and then store it in a class level variable. It does not return the Total Cost. It only Calculates it.
+The TotalCost property is how you will get access to the total cost of the droid. This will be zero until CalculateTotalCost is called. Then it will have a value.
+I didn't make CalculateTotalCost return the calculated value because I wanted you to have to implement both a method and a property in subclasses. Additionally, this should also demonstrate how an Interface acts as a contract and requires you to write things a certain way. Even if you don't agree with it.
 
 You should put all of your UI into a UI class that will handle getting all of the necessary information from the Jawa, and display the feedback to the Jawa.
 
@@ -36,16 +37,16 @@ The program should have a base abstract class called Droid with the following va
 
 Droid:
 
-* Variables: material (string), color (string), baseCost (decimal), totalCost (decimal)
+* Variables: material (string), color (string), totalCost (decimal)
 * Constructors: 2 parameter constructor (string, string)
 * Property: TotalCost to return the cost of the droid (Required by the interface)
 * Public Methods:
-	* ToString: return a formatted string containing the variables
-	* CalculateTotalCost: Required by the interface
+	* ToString: return a formatted string containing the properties of the droid.
+	* CalculateTotalCost: Required by the interface to calculate and store the total cost.
 * Protected Methods:
 	* Your Choice - But think about what might be able to be protected to save you work in derived classes.
 
-There should be two derived classes from the abstract class Droid with appropriate variables, methods and properties.
+There should be two derived classes from the abstract class Droid with appropriate variables, methods and properties. Both of these droid types can be created by a Jawa.
 
 Protocol:
 
@@ -55,7 +56,7 @@ Protocol:
 	* Uses the base class (Droid) constructor
 * Public Methods:
 	* ToString: return a formatted string containing the variables
-	* CalculateTotalCost: Calculate the totalCost based on the number of languages and type, and then adds it to the base totalCost
+	* CalculateTotalCost: Calculate the totalCost based on the number of languages and droid type. Then add those values to any costs that can be calculated by the base class.
 
 Utility:
 
@@ -64,9 +65,10 @@ Utility:
 	* Uses the base class (Droid) constructor
 * Public Methods:
 	* ToString: return a formatted string containing the variables
-	* CalculateTotalCost: Calculates totalCost by calculating the cost of each selected option and type, and then add it to the base totalCost.
+	* CalculateTotalCost: Calculates totalCost by calculating the cost of each selected option and droid type. Then add those values to any costs that can be calculated by the base class.
 
 There should be two more derived classes from the class Utility with appropriate variables, methods and properties.
+NOTE: Even though Utility is the base class for these droids, Utility itself is still a valid droid option that can be created in the system.
 
 Janitor:
 
@@ -75,7 +77,7 @@ Janitor:
 	* Uses the base class (Utility) constructor
 * Public Methods:
 	* ToString: return a formatted string containing the variables
-	* CalculateTotalCost: Calculate totalCost by calculating the cost of each selected option and type, and then adds it to the base CalculateTotalCost
+	* CalculateTotalCost: Calculate totalCost by calculating the cost of each selected option and droid type. Then add those values to any costs that can be calculated by the base class.
 
 Astromech:
 
@@ -85,9 +87,9 @@ Astromech:
 	* Uses the base class (Utility) constructor
 * Public Methods:
 	* ToString: return a formatted string containing the variables
-	* CalculateTotalCost: Calculate totalCost by calculating the cost of each selected option, the cost based on the number of ships, and the type. Then add all of that to the base CalculateTotalCost
+	* CalculateTotalCost: Calculate totalCost by calculating the cost of each selected option, the cost based on the number of ships, and the droid type. Then add those values to any costs that can be calculated by the base class.
 
-![Droid Class Diagram](http://barnesbrothers.homeserver.com/cis237/assignmentImages/DroidClassDiagram.jpg "Droid Class Diagram")
+![Droid Class Diagram](http://barnesbrothers.ddns.net/cis237/assignmentImages/DroidClassDiagram.jpg "Droid Class Diagram")
 
 ## Solution Requirements
 
@@ -95,9 +97,10 @@ Solution Must:
 
 * Allow Jawa to add a new droid of either (Protocol, Utility, Janitor, or Astromech) to the list
 * Allow Jawa to print the list of droids out.
+* Do NOT make any changes to the IDroid interface.
 * Create abstract class Droid that implements IDroid
 * Derive two classes (Protocol and Utility) from the class Droid
-* Derive two classes (Janitorial and Astromech) from the class Utility
+* Derive two classes (Janitor and Astromech) from the class Utility
 * Each derived class (Protocol, Utility, Janitor, and Astromnech) must either implement or override the ToString and CalculateTotalCost methods
 * Create a UI class
 * Create a DroidCollection class
